@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
 require 'active_record'
 require 'active_record/tasks/database_tasks'
 require 'erb'
+require_relative 'db/db_config'
 
 ActiveRecord::Base.configurations = YAML.safe_load(
   ERB.new(
