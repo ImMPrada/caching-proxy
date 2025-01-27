@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
 class CreateCachedResponses < ActiveRecord::Migration[7.1]
   def change
     create_table :cached_responses do |t|
       t.text :url, null: false
-      t.string :method, null: false, limit: 10
+      t.string :http_method, null: false, limit: 10
       t.jsonb :request_headers
       t.jsonb :response_headers
       t.text :response_body
@@ -12,6 +10,6 @@ class CreateCachedResponses < ActiveRecord::Migration[7.1]
       t.timestamp :expires_at
     end
 
-    add_index :cached_responses, %i[url method]
+    add_index :cached_responses, %i[url http_method]
   end
 end

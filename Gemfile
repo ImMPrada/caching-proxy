@@ -9,9 +9,11 @@ gem 'thor', '~> 1.2'
 
 group :development, :test do
   gem 'database_cleaner-active_record'
+  gem 'factory_bot', '~> 6.4'
   gem 'faker'
   gem 'rack-test', '~> 2.1'
   gem 'rspec', '~> 3.12'
+  gem 'shoulda-matchers', '~> 6.1'
   gem 'timecop', '~> 0.9.8'
 end
 
