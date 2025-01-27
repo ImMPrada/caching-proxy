@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: caching_proxy_development
+
+test:
+  <<: *default
+  database: caching_proxy_test
+
+production:
+  <<: *default
+  database: caching_proxy_production
+  username: <%= ENV['CACHING_PROXY_DATABASE_USERNAME'] %>
+  password: <%= ENV['CACHING_PROXY_DATABASE_PASSWORD'] %> 
