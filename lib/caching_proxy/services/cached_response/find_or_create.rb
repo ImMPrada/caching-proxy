@@ -1,8 +1,3 @@
-require 'rack'
-require 'net/http'
-require 'uri'
-require_relative '../../models/cached_response'
-
 module CachingProxy
   module Services
     module CachedResponse

@@ -34,7 +34,7 @@ RSpec.describe CachingProxy::Models::CachedResponse do
                                     expires_at: current_time)
         end
 
-        Timecop.travel(current_time + 3600) # Avanzar 1 hora
+        Timecop.travel(current_time + 3600) # Advance 1 hour
       end
 
       it 'returns nil' do
