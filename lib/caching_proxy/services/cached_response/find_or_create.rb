@@ -54,7 +54,7 @@ module CachingProxy
 
         def create_cache
           http_method = request.request_method
-          headers = response.to_hash.transform_values { |v| v.first }
+          headers = response.to_hash.transform_values(&:first)
 
           @cached = Models::CachedResponse.new(
             url:,
