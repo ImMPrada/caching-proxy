@@ -3,7 +3,7 @@ require 'database_cleaner/active_record'
 require 'timecop'
 require 'factory_bot'
 require 'shoulda-matchers'
-require_relative '../db/db_config'
+require_relative '../db/config'
 require_relative '../lib/caching_proxy/models/cached_response'
 
 RSpec.configure do |config|
@@ -39,4 +39,4 @@ Shoulda::Matchers.configure do |config|
 end
 
 ENV['RACK_ENV'] = 'test'
-CachingProxy::DbConfig.establish_connection
+Db::Config.establish_connection

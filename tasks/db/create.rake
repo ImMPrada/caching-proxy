@@ -1,7 +1,7 @@
 namespace :db do
   desc 'Create the database'
   task :create do
-    config = CachingProxy::DbConfig.send(:configuration)
+    config = Db::Config.send(:configuration)
     ActiveRecord::Base.establish_connection(config.merge('database' => 'postgres'))
     ActiveRecord::Base.connection.create_database(config['database'])
 

@@ -1,9 +1,9 @@
- require 'active_record'
+require 'active_record'
 require 'yaml'
 require 'erb'
 
-module CachingProxy
-  class DbConfig
+module Db
+  class Config
     class << self
       def establish_connection
         ActiveRecord::Base.establish_connection(configuration)

@@ -1,7 +1,7 @@
 require 'active_record'
 require 'active_record/tasks/database_tasks'
 require 'erb'
-require_relative 'db/db_config'
+require_relative 'db/config'
 
 ActiveRecord::Base.configurations = YAML.safe_load(
   ERB.new(
