@@ -1,10 +1,13 @@
-require 'active_record'
-require 'database_cleaner/active_record'
+require 'rspec'
+require 'database_cleaner'
 require 'timecop'
-require 'factory_bot'
-require 'shoulda-matchers'
-require_relative '../db/db_config'
-require_relative '../lib/caching_proxy/models/cached_response'
+require_relative '../db/config'
+
+# Load the application code
+require_relative '../lib/caching_proxy'
+
+# Load support files
+Dir[File.join(__dir__, 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -21,22 +24,4 @@ RSpec.configure do |config|
   config.after do
     Timecop.return
   end
-
-  # Configure FactoryBot
-  config.include FactoryBot::Syntax::Methods
-  config.include Shoulda::Matchers::ActiveModel
-
-  config.before(:suite) do
-    FactoryBot.find_definitions
-  end
 end
-
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :active_record
-  end
-end
-
-ENV['RACK_ENV'] = 'test'
-CachingProxy::DbConfig.establish_connection
