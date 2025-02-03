@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'webrick'
+require 'thor'
+require 'rackup'
+require_relative '../lib/caching_proxy'
+require_relative '../db/config'
+
+module CachingProxy
+  class CLI < Thor
+    desc 'start', 'Start the caching proxy server'
+    method_option :port, type: :numeric, required: true, desc: 'Port number to run the server on'
+    method_option :origin, type: :string, required: true, desc: 'Origin server URL'
+    def start
+      ENV['ORIGIN_URL'] = options[:origin]
+      Db::Config.establish_connection
+
+      puts "Starting caching proxy server on port #{options[:port]}"
+      puts "Origin server: #{options[:origin]}"
+      puts "Press Ctrl+C to stop the server"
+
+      server = nil
+      shutdown_requested = false
+
+      trap('INT') do
+        return if shutdown_requested
+        shutdown_requested = true
+        puts "\nShutting down server..."
+        server&.shutdown
+        Thread.new do
+          sleep 2
+          puts "Force exit..."
+          exit!
+        end
+      end
+
+      server = Rackup::Handler::WEBrick.run(
+        CachingProxy::Controller.new,
+        Port: options[:port],
+        Host: '0.0.0.0',
+        Logger: WEBrick::Log.new(File.open(File::NULL, 'w')),
+        AccessLog: []
+      )
+    end
+  end
+end
+
+CachingProxy::CLI.start(ARGV)
