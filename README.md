@@ -15,3 +15,24 @@ This proxy server acts as an intermediary between clients and origin servers, ca
 ## Local Deployment
 
 To run the caching proxy server:
+
+- you need bundle gem installed
+- you need ruby 3.2.2
+- you need to install the dependencies
+
+```bash
+bundle install
+```
+
+- create and install the database
+
+```bash
+bundle exec rakedb:create
+bundle exec rakedb:migrate
+```
+
+- you need to run the origin server, for example to cache the Rick and Morty API
+
+```bash
+bin/caching-proxy start --port 3000 --origin https://rickandmortyapi.com
+```
