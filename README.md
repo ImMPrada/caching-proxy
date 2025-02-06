@@ -36,3 +36,10 @@ bundle exec rakedb:migrate
 ```bash
 bin/caching-proxy start --port 3000 --origin https://rickandmortyapi.com
 ```
+
+- you can clear the cache by running
+
+```bash
+bin/caching-proxy clear-cache
+```
+

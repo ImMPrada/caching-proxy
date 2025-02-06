@@ -42,6 +42,14 @@ module CachingProxy
         AccessLog: []
       )
     end
+
+    desc 'clear-cache', 'Clear the proxy cache'
+    def clear_cache
+      Db::Config.establish_connection
+      puts "Clearing cache..."
+      CachingProxy::Models::CachedResponse.destroy_all
+      puts "Cache cleared successfully"
+    end
   end
 end
 
